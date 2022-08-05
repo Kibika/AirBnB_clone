@@ -7,13 +7,23 @@ Base Model for AirBnB clone
 import uuid
 from datetime import datetime
 
+format_dt = "%Y-%m-%dT%H:%M:%S.%f"
 
 class BaseModel():
     """Base Model for AirBnB clone"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initialize instance attributes"""
-        self.id = str(uuid.uuid4())
-        self.created_at = self.updated_at = datetime.now()
+        if args is not None and len(args) > 0:
+            pass
+        if kwargs:
+            for key, item in kwargs.items():
+                if key in ['created_at', 'updated_at']:
+                    item = datetime.strptime(item, format_dt)
+                if key not in ['__class__']:
+                    setattr(self, key, item)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = self.updated_at = datetime.now()
 
     def __str__(self):
         """str representation"""
