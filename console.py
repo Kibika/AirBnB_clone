@@ -6,6 +6,7 @@ from models import storage
 from models.base_model import BaseModel
 from shlex import split
 import re
+from models.user import User
 
 
 def parse(arg):
@@ -34,7 +35,8 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
     __classes = {
-            "BaseModel"}
+            "BaseModel",
+            "User"}
 
     def do_EOF(self, arg):
         """ End of file"""
